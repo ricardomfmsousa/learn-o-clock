@@ -3,7 +3,6 @@ import './App.scss'
 import { FC } from 'react'
 
 import LiveBackground from './components/LiveBackgrounds/MountainsLandscape'
-import logo from './logo.svg'
 import TraditionalClock from './components/ClockFaces/TraditionalClock'
 
 const App: FC = (): JSX.Element => {
