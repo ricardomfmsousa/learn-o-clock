@@ -1,14 +1,17 @@
-import "./App.scss";
+import './App.scss'
 
-import React from "react";
+import { FC } from 'react'
 
-import logo from "./logo.svg";
+import LiveBackground from './components/LiveBackgrounds/MountainsLandscape'
+import logo from './logo.svg'
+import TraditionalClock from './components/ClockFaces/TraditionalClock'
 
-function App() {
+const App: FC = (): JSX.Element => {
   return (
     <div className="App">
+      <LiveBackground />
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <TraditionalClock className="App-logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
