@@ -50,7 +50,7 @@ const MountainsLandscape: FC<Props> = ({ time }): JSX.Element => {
           fillOpacity: 1,
           fillRule: 'nonzero',
           stroke: 'none',
-          filter: `brightness(${globalBrightness}%)`,
+          filter: `brightness(${skyBrightness}%)`,
         }}
         transform="matrix(.4329 0 0 -.4329 0 5412.547)"
       />
