@@ -1,23 +1,56 @@
 import { FC } from 'react'
-import styles from './LiveBackgrounds.module.scss'
+import liveBackgroundsStyles from '../LiveBackgrounds.module.scss'
+import styles from './MountainsLandscape.module.scss'
+import startOfToday from 'date-fns/startOfToday'
+import endOfToday from 'date-fns/endOfToday'
 
-const LiveBackground: FC = (props): JSX.Element => {
+interface Props {
+  time: Date
+}
+
+const MountainsLandscape: FC<Props> = ({ time }): JSX.Element => {
+  const now = time.valueOf()
+  const start = startOfToday().valueOf()
+  const end = endOfToday().valueOf()
+  const timeRangeMillis = end - start
+  const elapsedMillis = now - start
+  const dayCompletePercentage = Math.max(
+    0,
+    Math.min(100, 100 * (elapsedMillis / timeRangeMillis))
+  )
+
+  const grayscale =
+    dayCompletePercentage < 20 || dayCompletePercentage > 80
+      ? 100
+      : Math.pow(dayCompletePercentage / 12.1 - 4.13, 6)
+  const globalBrightness =
+    dayCompletePercentage < 25 || dayCompletePercentage > 75
+      ? 22
+      : 100 - Math.pow(dayCompletePercentage / 12.1 - 4.13, 6)
+  const skyBrightness = 100 - Math.pow(dayCompletePercentage / 15 - 3.34, 6)
+  console.log('Global', globalBrightness)
+
+  console.log(time, dayCompletePercentage)
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlSpace="preserve"
       viewBox="0 0 7056.427 5412.547"
       preserveAspectRatio="xMidYMid slice"
-      className={styles.svg}
-      {...props}
+      className={liveBackgroundsStyles.svg}
+      style={{
+        filter: `brightness(${globalBrightness}%) grayscale(${grayscale}%)`,
+      }}
     >
       <path
+        id={styles.sky}
         d="M16300.1 0H0v12502.8h16300.1V0"
         style={{
           fill: '#b1e1d6',
           fillOpacity: 1,
           fillRule: 'nonzero',
           stroke: 'none',
+          filter: `brightness(${globalBrightness}%)`,
         }}
         transform="matrix(.4329 0 0 -.4329 0 5412.547)"
       />
@@ -72,6 +105,7 @@ const LiveBackground: FC = (props): JSX.Element => {
         transform="matrix(.40176 0 0 -.40176 0 5412.547)"
       />
       <path
+        id={styles.sun}
         d="M16300 13079.3c0-442.3-358.6-800.9-800.9-800.9-442.4 0-800.9 358.6-800.9 800.9 0 442.4 358.5 801 800.9 801 442.3 0 800.9-358.6 800.9-801"
         style={{
           fill: '#fbd47f',
@@ -885,4 +919,4 @@ const LiveBackground: FC = (props): JSX.Element => {
   )
 }
 
-export default LiveBackground
+export default MountainsLandscape

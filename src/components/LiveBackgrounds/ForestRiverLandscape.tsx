@@ -1,8 +1,19 @@
 import { FC } from 'react'
 
 const ForestRiverLandscape: FC = (props) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2272 1872" xmlSpace="preserve" {...props}>
-    <linearGradient id="a" x1={1135.5} x2={1135.5} y2={1872} gradientUnits="userSpaceOnUse">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 2272 1872"
+    xmlSpace="preserve"
+    {...props}
+  >
+    <linearGradient
+      id="a"
+      x1={1135.5}
+      x2={1135.5}
+      y2={1872}
+      gradientUnits="userSpaceOnUse"
+    >
       <stop stopColor="#D2E8FF" offset={0.064} />
       <stop stopColor="#26B8FF" offset={1} />
     </linearGradient>
