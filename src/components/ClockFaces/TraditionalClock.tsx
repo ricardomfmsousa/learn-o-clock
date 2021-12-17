@@ -1,11 +1,17 @@
 import { FC } from 'react'
+import styles from './TraditionalClock.module.scss'
+import classNames from 'classnames'
 
 interface Props {
-  [key: string]: unknown
+  className: string
 }
 
 const TraditionalClock: FC<Props> = (props) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" {...props}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 400 400"
+    className={classNames(props.className, styles.clock)}
+  >
     <defs>
       <filter id="e">
         <feGaussianBlur stdDeviation={2.487} />
@@ -22,7 +28,13 @@ const TraditionalClock: FC<Props> = (props) => (
       <filter id="f">
         <feGaussianBlur stdDeviation={1.046} />
       </filter>
-      <radialGradient id="d" gradientUnits="userSpaceOnUse" cy={332.36} cx={-485.71} r={262.86}>
+      <radialGradient
+        id="d"
+        gradientUnits="userSpaceOnUse"
+        cy={332.36}
+        cx={-485.71}
+        r={262.86}
+      >
         <stop
           style={{
             stopColor: '#f0f7f9',
@@ -81,15 +93,6 @@ const TraditionalClock: FC<Props> = (props) => (
         />
       </radialGradient>
     </defs>
-    <path
-      style={{
-        fillRule: 'evenodd',
-        filter: 'url(#a)',
-        fill: '#000',
-      }}
-      d="M-222.86 332.36a262.86 262.86 0 1 1-525.71 0 262.86 262.86 0 1 1 525.71 0z"
-      transform="translate(553.875 -39.102) scale(.72854)"
-    />
     <path
       style={{
         fillRule: 'evenodd',
