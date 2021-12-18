@@ -28,9 +28,7 @@ const MountainsLandscape: FC<Props> = ({ time }): JSX.Element => {
       ? 22
       : 100 - Math.pow(dayCompletePercentage / 12.1 - 4.13, 6)
   const skyBrightness = 100 - Math.pow(dayCompletePercentage / 15 - 3.34, 6)
-  console.log('Global', globalBrightness)
 
-  console.log(time, dayCompletePercentage)
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

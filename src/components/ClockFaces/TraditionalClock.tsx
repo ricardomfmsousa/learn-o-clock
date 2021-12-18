@@ -8,11 +8,55 @@ interface Props {
 }
 
 const TraditionalClock: FC<Props> = ({ time, setTime, className }) => {
+  const clockRef = useRef<SVGSVGElement>(null)
   const hoursPointerRef = useRef<SVGPathElement>(null)
   const minutesPointerRef = useRef<SVGPathElement>(null)
   const secondsPointerRef = useRef<SVGPathElement>(null)
   const clockHourNumberRefs = useRef(Array(12))
 
+  useEffect(() => {
+    const rotateHand = (clock: SVGSVGElement | null, event: MouseEvent) => {
+      const elem = event.target as HTMLElement
+      if (!elem || !clock) {
+        return
+      }
+      elem.style.cursor = 'grabbing'
+      let rotating = true
+      const rect = clock.getBoundingClientRect() // get clock size and position
+      const radius = rect.width / 2 // calculate radius based on size
+      const rotateHandler = (e: MouseEvent) => {
+        const radians = Math.atan2(
+          e.pageX - (rect.x + radius),
+          e.pageY - (rect.y + radius)
+        ) // account for position
+        let rotateDegrees = radians * (180 / Math.PI) * -1 - 180
+        if (rotating) {
+          elem.style.transform = `rotate(${rotateDegrees}deg)`
+        }
+      }
+      document.addEventListener('mousemove', rotateHandler)
+      const cancelRotate = () => {
+        elem.style.cursor = 'grab'
+        rotating = !rotating
+        document.removeEventListener('mousemove', rotateHandler)
+        document.removeEventListener('mouseup', cancelRotate)
+      }
+      document.addEventListener('mouseup', cancelRotate)
+    }
+    const clockEl = clockRef.current
+    const hoursPointerEl = hoursPointerRef.current
+    const minutesPointerEl = minutesPointerRef.current
+
+    if (clockEl && hoursPointerEl && minutesPointerEl) {
+      clockEl.style.opacity = '0.8'
+      hoursPointerEl.addEventListener('mousedown', (e) =>
+        rotateHand(clockEl, e)
+      )
+      minutesPointerEl.addEventListener('mousedown', (e) =>
+        rotateHand(clockEl, e)
+      )
+    }
+  }, [])
   // Position clock hands based on the `time` value
   useEffect(() => {
     const hoursPointerEl = hoursPointerRef.current
@@ -54,6 +98,7 @@ const TraditionalClock: FC<Props> = ({ time, setTime, className }) => {
 
   return (
     <svg
+      ref={clockRef}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       id="svg74"

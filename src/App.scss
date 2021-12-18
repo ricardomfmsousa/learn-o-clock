@@ -29,3 +29,10 @@
     transform: rotate(360deg);
   }
 }
+
+svg {
+  pointer-events: none;
+  * {
+    pointer-events: all;
+  }
+}
